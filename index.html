@@ -695,13 +695,7 @@ a:hover { opacity: 0.75; }
 </style>
 
 <!-- Three.js for 3D hero -->
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
-  }
-}
-</script>
+<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
 </head>
 <body>
 
@@ -990,11 +984,9 @@ fetch("/api/waitlist")
   .catch(() => {});
 
 // ═══ THREE.JS 3D HERO ═══
-import * as THREE from 'three';
-
 (function() {
   const canvas = document.getElementById('hero-canvas');
-  if (!canvas) return;
+  if (!canvas || typeof THREE === 'undefined') return;
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
