@@ -42,6 +42,7 @@ class PanasonixisHandler(SimpleHTTPRequestHandler):
             try:
                 payload = json.loads(body)
                 email = payload.get("email", "").strip()
+                source = payload.get("source", "website")
             except:
                 email = ""
 
@@ -53,19 +54,48 @@ class PanasonixisHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"error": "Invalid email"}).encode())
                 return
 
-            # Load existing waitlist
+            # Try Airtable first, fall back to JSON file
+            added_to_airtable = False
+            try:
+                import urllib.request
+                AIRTABLE_PAT = os.environ.get("AIRTABLE_PAT", "")
+                AIRTABLE_BASE = os.environ.get("AIRTABLE_BASE_ID", "")
+                if AIRTABLE_PAT and AIRTABLE_BASE:
+                    url = f"https://api.airtable.com/v0/{AIRTABLE_BASE}/Waitlist"
+                    at_payload = json.dumps({
+                        "records": [{
+                            "fields": {
+                                "Email": email,
+                                "Timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+                                "Source": source,
+                                "Status": "new",
+                            }
+                        }]
+                    }).encode()
+                    req = urllib.request.Request(
+                        url, data=at_payload,
+                        headers={"Authorization": f"Bearer {AIRTABLE_PAT}", "Content-Type": "application/json"},
+                        method="POST"
+                    )
+                    with urllib.request.urlopen(req, timeout=15) as resp:
+                        if resp.status == 200:
+                            added_to_airtable = True
+            except:
+                pass  # Airtable not configured — fall back to JSON
+
+            # Always save to local JSON as backup
             try:
                 with open(WAITLIST_FILE, "r") as f:
                     entries = json.load(f)
             except:
                 entries = []
 
-            # Add new entry (deduplicate by email)
             already = any(e.get("email") == email for e in entries)
             if not already:
                 entries.append({
                     "email": email,
-                    "joined": datetime.now(timezone.utc).isoformat()
+                    "joined": datetime.now(timezone.utc).isoformat(),
+                    "airtable": added_to_airtable
                 })
                 with open(WAITLIST_FILE, "w") as f:
                     json.dump(entries, f, indent=2)
@@ -74,8 +104,11 @@ class PanasonixisHandler(SimpleHTTPRequestHandler):
             self.send_header("Content-Type", "application/json")
             self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
-            msg = "You're on the list. We'll be in touch. ♡" if not already else "You're already on the list."
-            self.wfile.write(json.dumps({"message": msg, "count": len(entries)}).encode())
+            if added_to_airtable:
+                msg = "You're on the list. We'll be in touch. ♡"
+            else:
+                msg = "You're on the list. We'll be in touch. ♡"
+            self.wfile.write(json.dumps({"message": msg, "count": len(entries), "airtable": added_to_airtable}).encode())
             return
 
         self.send_response(404)
