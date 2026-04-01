@@ -182,21 +182,28 @@ nav .container {
   width: 280px;
   height: 280px;
   margin-bottom: 48px;
-  border-radius: 24px;
+  border-radius: 16px;
   overflow: hidden;
   position: relative;
-  box-shadow:
-    0 0 0 1px rgba(91,156,246,0.2),
-    0 0 60px rgba(91,156,246,0.15),
-    0 40px 80px rgba(0,0,0,0.5);
-  animation: heroFloat 6s ease-in-out infinite;
 }
 
 .hero-render canvas {
   width: 100%;
   height: 100%;
   display: block;
-  border-radius: inherit;
+  border-radius: 16px;
+}
+
+.hero-render::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, transparent 0%, rgba(255,100,50,0.25) 60%, rgba(255,60,20,0.35) 100%);
+  pointer-events: none;
+  border-radius: 0 0 16px 16px;
 }
 
 .hero-render::after {
