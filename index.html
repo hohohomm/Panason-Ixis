@@ -199,7 +199,7 @@ nav .container {
   font-size: clamp(1.2rem, 3vw, 1.6rem);
   color: var(--accent);
   font-weight: 600;
-  min-width: 3ch;
+  min-width: 0;
 }
 
 .tagline-cursor {
@@ -681,7 +681,7 @@ a:hover { opacity: 0.75; }
 <!-- HERO -->
 <section class="hero">
   <div class="container">
-    <h1>panasonixis</h1>
+    <h1>Panix</h1>
 
     <div class="tagline-wrap">
       <span class="tagline-prefix">the signal between</span>
@@ -905,20 +905,20 @@ async function submitWaitlist(e) {
   const btn = form.querySelector("button");
   const emailInput = form.querySelector('input[type="text"]');
   const email = emailInput.value.trim();
-  if (!email.includes('@') || !email.includes('.')) {
-    errorEl.textContent = 'Please enter a valid email address';
-    errorEl.style.display = 'block';
-    btn.disabled = false; btn.textContent = 'Join the Waitlist';
-    return;
-  }
   const successId = form.id === "waitlist-form" ? "success-msg" : "success-msg-2";
   const errorId = form.id === "waitlist-form" ? "error-msg" : "error-msg-2";
   const successEl = document.getElementById(successId);
   const errorEl = document.getElementById(errorId);
-
-  btn.disabled = true; btn.textContent = "Joining…";
+  if (!email || !email.includes('@') || !email.includes('.')) {
+    errorEl.textContent = 'Please enter a valid email';
+    errorEl.style.display = 'block';
+    successEl.style.display = 'none';
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = "✓";
+  btn.style.background = "linear-gradient(135deg, #34d399, #059669)";
   successEl.style.display = "none"; errorEl.style.display = "none";
-
   try {
     const r = await fetch("/api/waitlist", {
       method: "POST",
@@ -927,17 +927,26 @@ async function submitWaitlist(e) {
     });
     const d = await r.json();
     if (r.ok) {
-      successEl.textContent = d.message + " ♡";
+      emailInput.value = '';
+      successEl.textContent = "You're on the list. We'll be in touch. ♡";
       successEl.style.display = "block";
-      form.style.display = "none";
+      successEl.style.background = "rgba(52,211,153,0.1)";
+      successEl.style.border = "1px solid rgba(52,211,153,0.25)";
       document.getElementById("waitlist-count").textContent = `${d.count} on the waitlist`;
+      setTimeout(() => {
+        btn.textContent = "Join the Waitlist";
+        btn.style.background = "";
+        btn.disabled = false;
+      }, 3000);
     } else {
       throw new Error(d.error || "Something went wrong");
     }
   } catch(err) {
     errorEl.textContent = err.message;
     errorEl.style.display = "block";
-    btn.disabled = false; btn.textContent = "Join the Waitlist";
+    btn.textContent = "Join the Waitlist";
+    btn.style.background = "";
+    btn.disabled = false;
   }
 }
 
