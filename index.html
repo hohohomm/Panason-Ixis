@@ -728,7 +728,7 @@ a:hover { opacity: 0.75; }
 
     <div class="waitlist">
       <form class="waitlist-form" id="waitlist-form" onsubmit="submitWaitlist(event)">
-        <input type="email" placeholder="your@email.com" required autocomplete="email" id="email-input"/>
+        <input type="text" placeholder="your@email.com" autocomplete="email" id="email-input" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"/>
         <button type="submit" id="submit-btn">Join the Waitlist</button>
       </form>
       <div class="waitlist-success" id="success-msg"></div>
@@ -882,7 +882,7 @@ a:hover { opacity: 0.75; }
     <p>Join the waitlist and get early access when we launch.</p>
     <div class="waitlist" style="margin: 0 auto;">
       <form class="waitlist-form" onsubmit="submitWaitlist(event)">
-        <input type="email" placeholder="your@email.com" required autocomplete="email" id="email-input-2"/>
+        <input type="text" placeholder="your@email.com" autocomplete="email" id="email-input-2" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"/>
         <button type="submit">Join the Waitlist</button>
       </form>
       <div class="waitlist-success" id="success-msg-2"></div>
@@ -933,7 +933,14 @@ async function submitWaitlist(e) {
   e.preventDefault();
   const form = e.target;
   const btn = form.querySelector("button");
-  const email = form.querySelector('input[type="email"]').value;
+  const emailInput = form.querySelector('input[type="text"]');
+  const email = emailInput.value.trim();
+  if (!email.includes('@') || !email.includes('.')) {
+    errorEl.textContent = 'Please enter a valid email address';
+    errorEl.style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Join the Waitlist';
+    return;
+  }
   const successId = form.id === "waitlist-form" ? "success-msg" : "success-msg-2";
   const errorId = form.id === "waitlist-form" ? "error-msg" : "error-msg-2";
   const successEl = document.getElementById(successId);
