@@ -45,60 +45,30 @@ body {
   overflow-x: hidden;
 }
 
-/* ═══ AMBIENT BACKGROUND ═══ */
-.orb {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(100px);
-  pointer-events: none;
-  z-index: 0;
-  will-change: transform;
-}
+/* ═══ AMBIENT BACKGROUND — grounded, not cosmic void ═══ */
 
-.orb-1 {
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(91,156,246,0.18) 0%, transparent 70%);
-  top: -200px; left: -150px;
-  animation: float1 18s ease-in-out infinite;
-}
-.orb-2 {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(167,139,250,0.15) 0%, transparent 70%);
-  top: 30%; right: -200px;
-  animation: float2 22s ease-in-out infinite;
-}
-.orb-3 {
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(52,211,153,0.1) 0%, transparent 70%);
-  bottom: -100px; left: 20%;
-  animation: float3 26s ease-in-out infinite;
-}
-
-@keyframes float1 {
-  0%,100% { transform: translate(0,0) scale(1); }
-  33% { transform: translate(80px,60px) scale(1.1); }
-  66% { transform: translate(-40px,100px) scale(0.95); }
-}
-@keyframes float2 {
-  0%,100% { transform: translate(0,0) scale(1); }
-  40% { transform: translate(-100px,40px) scale(1.05); }
-  70% { transform: translate(-50px,-60px) scale(1.08); }
-}
-@keyframes float3 {
-  0%,100% { transform: translate(0,0); }
-  50% { transform: translate(60px,-80px); }
-}
-
-/* Grid overlay */
-.grid-bg {
+/* Subtle noise grain overlay */
+body::before {
+  content: '';
   position: fixed;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(91,156,246,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(91,156,246,0.025) 1px, transparent 1px);
-  background-size: 64px 64px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 0;
+  opacity: 0.4;
+}
+
+/* Floor horizon — anchors the space */
+body::after {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 35vh;
+  background: linear-gradient(to bottom, transparent 0%, rgba(5,5,10,0.95) 100%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* ═══ LAYOUT ═══ */
@@ -688,12 +658,6 @@ a:hover { opacity: 0.75; }
 </head>
 <body>
 
-<!-- Ambient background -->
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
-<div class="orb orb-3"></div>
-<div class="grid-bg"></div>
-
 <!-- NAV -->
 <nav>
   <div class="container">
@@ -992,23 +956,43 @@ fetch("/api/waitlist")
   const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
   camera.position.set(0, 0.5, 4);
 
-  // Main icosahedron — wireframe with glow
-  const geo = new THREE.IcosahedronGeometry(1.3, 1);
+  // Main icosahedron — high detail wireframe
+  const geo = new THREE.IcosahedronGeometry(1.3, 2);
   const mat = new THREE.MeshBasicMaterial({
     color: 0x5b9cf6,
     wireframe: true,
     transparent: true,
-    opacity: 0.6,
+    opacity: 0.7,
   });
   const mesh = new THREE.Mesh(geo, mat);
   scene.add(mesh);
 
-  // Inner solid core
-  const coreGeo = new THREE.IcosahedronGeometry(0.65, 0);
+  // Bloom simulation — outer glow shell
+  const bloomGeo = new THREE.IcosahedronGeometry(1.42, 2);
+  const bloomMat = new THREE.MeshBasicMaterial({
+    color: 0x3a7fd4,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.15,
+  });
+  scene.add(new THREE.Mesh(bloomGeo, bloomMat));
+
+  // Second bloom layer — slightly larger, dimmer
+  const bloom2Geo = new THREE.IcosahedronGeometry(1.55, 1);
+  const bloom2Mat = new THREE.MeshBasicMaterial({
+    color: 0x5b9cf6,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.06,
+  });
+  scene.add(new THREE.Mesh(bloom2Geo, bloom2Mat));
+
+  // Inner solid core — purple accent
+  const coreGeo = new THREE.IcosahedronGeometry(0.6, 1);
   const coreMat = new THREE.MeshBasicMaterial({
     color: 0xa78bfa,
     transparent: true,
-    opacity: 0.3,
+    opacity: 0.4,
   });
   const core = new THREE.Mesh(coreGeo, coreMat);
   scene.add(core);
@@ -1042,7 +1026,7 @@ fetch("/api/waitlist")
     positions[i * 3 + 2] = r * Math.cos(phi);
   }
   pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  const pMat = new THREE.PointsMaterial({ color: 0x5b9cf6, size: 0.03, transparent: true, opacity: 0.6 });
+  const pMat = new THREE.PointsMaterial({ color: 0x5b9cf6, size: 0.025, transparent: true, opacity: 0.8 });
   scene.add(new THREE.Points(pGeo, pMat));
 
   // Mouse parallax
