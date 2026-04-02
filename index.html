@@ -683,7 +683,7 @@ a:hover { opacity: 0.75; }
 
     <div class="tagline-wrap">
       <span class="tagline-prefix">the signal between</span>
-      <span class="tagline-typed" id="typed"></span>
+      <span class="tagline-typed" id="typed">&nbsp;</span>
       <span class="tagline-cursor"></span>
     </div>
 
@@ -867,7 +867,8 @@ a:hover { opacity: 0.75; }
 
 <script>
 // ═══ TYPING ANIMATION ═══
-const words = ["agent.", "human.", "wisdom.", "thinking.", "signal."];
+// The typed words complete the phrase "the signal between ___"
+const words = ["wisdom and seekers.", "mind and machine.", "human and AI.", "IQ and EQ.", "signal and noise."];
 let wordIndex = 0, charIndex = 0, isDeleting = false;
 const typed = document.getElementById("typed");
 
