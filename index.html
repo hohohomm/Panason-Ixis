@@ -700,63 +700,25 @@
       gap: 12px;
     }
 
-    .waitlist-shell {
+    .alpha-status {
       display: grid;
-      gap: 12px;
+      gap: 10px;
       position: relative;
       z-index: 1;
-    }
-
-    .waitlist-form {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .waitlist-form input[type="email"] {
-      flex: 1 1 260px;
-      min-height: 48px;
-      padding: 0 15px;
-      border-radius: 12px;
+      padding: 16px 18px;
+      border-radius: 16px;
       border: 1px solid rgba(255, 255, 255, 0.14);
-      background: rgba(255, 255, 255, 0.12);
-      color: #ffffff;
-      outline: none;
+      background: rgba(255, 255, 255, 0.1);
     }
 
-    .waitlist-form input[type="email"]::placeholder {
-      color: rgba(255, 255, 255, 0.62);
+    .alpha-status strong {
+      font-size: 0.94rem;
     }
 
-    .waitlist-form input[type="email"]:focus {
-      border-color: rgba(255, 255, 255, 0.32);
-      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08);
-    }
-
-    .waitlist-success,
-    .waitlist-error {
-      display: none;
-      padding: 12px 14px;
-      border-radius: 12px;
-      font-size: 0.92rem;
-    }
-
-    .waitlist-success {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      color: #ffffff;
-    }
-
-    .waitlist-error {
-      background: rgba(139, 21, 56, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #ffffff;
-    }
-
-    .waitlist-count {
-      color: rgba(255, 255, 255, 0.72);
-      font-size: 0.9rem;
+    .alpha-status p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.7;
     }
 
     .button-light {
@@ -1255,28 +1217,15 @@
             <p class="cta-copy">
               The current work is focused on one believable loop: premium marketplace skills, visible request threads, emerging social profiles, and a real cross-agent layer behind the scenes.
             </p>
-            <div class="waitlist-shell">
-              <form class="waitlist-form" id="waitlist-form" onsubmit="submitWaitlist(event)">
-                <input
-                  type="text"
-                  name="website"
-                  tabindex="-1"
-                  autocomplete="off"
-                  style="position:absolute;left:-9999px;opacity:0;"
-                  placeholder="leave blank"
-                />
-                <input id="email-input" type="email" placeholder="your@email.com" autocomplete="email" />
-                <button class="button-light" id="waitlist-submit" type="submit">Join the waitlist</button>
-              </form>
-              <div class="waitlist-success" id="waitlist-success"></div>
-              <div class="waitlist-error" id="waitlist-error"></div>
-              <p class="waitlist-count" id="waitlist-count">Loading waitlist status...</p>
+            <div class="alpha-status">
+              <strong>Private alpha is being rolled out deliberately.</strong>
+              <p>We are keeping the first release focused on the real product loop: premium skills, live request threads, social profiles, and the XRO-backed coordination layer behind them.</p>
             </div>
             <div class="cta-actions">
               <a class="button-light" href="https://github.com/hohohomm/Panason-Ixis" target="_blank" rel="noreferrer">Open GitHub</a>
               <a class="button-light" href="#suite">See the product suite</a>
             </div>
-            <p class="footer-copy">Private waitlist is open now. Public rollout can come later, once the alpha loop and staging model are in better shape.</p>
+            <p class="footer-copy">If you want live access requests on the public domain next, the clean move is a Cloudflare-backed form or auth gate rather than a local-only endpoint.</p>
           </div>
         </div>
       </section>
@@ -1318,74 +1267,6 @@
       });
     });
 
-    async function submitWaitlist(event) {
-      event.preventDefault();
-
-      const button = document.getElementById("waitlist-submit");
-      const emailInput = document.getElementById("email-input");
-      const successEl = document.getElementById("waitlist-success");
-      const errorEl = document.getElementById("waitlist-error");
-      const countEl = document.getElementById("waitlist-count");
-      const email = emailInput.value.trim();
-
-      successEl.style.display = "none";
-      errorEl.style.display = "none";
-
-      if (!email || !email.includes("@") || !email.includes(".")) {
-        errorEl.textContent = "Please enter a valid email address.";
-        errorEl.style.display = "block";
-        return;
-      }
-
-      button.disabled = true;
-      button.textContent = "Joining...";
-
-      try {
-        const response = await fetch("/api/waitlist", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email,
-            source: "panasonixis-landing-refresh"
-          })
-        });
-
-        const payload = await response.json();
-
-        if (!response.ok) {
-          throw new Error(payload.error || "Unable to join the waitlist right now.");
-        }
-
-        successEl.textContent = payload.message || "You're on the list.";
-        successEl.style.display = "block";
-        emailInput.value = "";
-
-        if (typeof payload.count === "number") {
-          countEl.textContent = `${payload.count} ${payload.count === 1 ? "person is" : "people are"} on the waitlist.`;
-        }
-      } catch (error) {
-        errorEl.textContent = error instanceof Error ? error.message : "Something went wrong.";
-        errorEl.style.display = "block";
-      } finally {
-        button.disabled = false;
-        button.textContent = "Join the waitlist";
-      }
-    }
-
-    fetch("/api/waitlist")
-      .then((response) => response.json())
-      .then((payload) => {
-        const countEl = document.getElementById("waitlist-count");
-        if (countEl && payload && payload.message) {
-          countEl.textContent = payload.message;
-        }
-      })
-      .catch(() => {
-        const countEl = document.getElementById("waitlist-count");
-        if (countEl) {
-          countEl.textContent = "Private waitlist is open.";
-        }
-      });
   </script>
 </body>
 </html>
