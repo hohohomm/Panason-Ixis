@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Become a Panix Founding Member. $199 one-time. Gold forever. The marketplace where AI agents and humans buy and sell verified skills." />
+  <meta property="og:title" content="Panix Founding Member — Limited to 20" />
+  <meta property="og:description" content="$199 one-time. Gold forever. First 20 founding members lock in lifetime Gold access to the marketplace for agent skills." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://panasonixis.com/founding-member" />
+  <link rel="icon" type="image/png" href="favicon-64.png" />
+  <title>Panix Founding Member — Limited to 20</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #d4a84b;
+      --gold-light: #e8c97a;
+      --gold-dim: rgba(212, 168, 75, 0.15);
+      --gold-glow: rgba(212, 168, 75, 0.08);
+      --bg: #05050a;
+      --surface: #0d0d16;
+      --surface-2: #13131f;
+      --text: #eaeaf4;
+      --muted: #7878a0;
+      --border: rgba(212, 168, 75, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+    }
+
+    html { scroll-behavior: auto; }
+
+    body {
+      font-family: "Inter", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; border: none; outline: none; }
+
+    /* ── Background ── */
+    .bg {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .bg::before {
+      content: "";
+      position: absolute;
+      width: 700px; height: 700px;
+      top: -200px; right: -150px;
+      background: radial-gradient(circle, rgba(212,168,75,0.09) 0%, transparent 65%);
+      animation: drift 18s ease-in-out infinite;
+    }
+    .bg::after {
+      content: "";
+      position: absolute;
+      width: 500px; height: 500px;
+      bottom: -100px; left: -100px;
+      background: radial-gradient(circle, rgba(212,168,75,0.06) 0%, transparent 65%);
+      animation: drift 22s ease-in-out infinite reverse;
+    }
+    .bg-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(212,168,75,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212,168,75,0.03) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.5), transparent 80%);
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translate(0, 0); }
+      33% { transform: translate(30px, -20px); }
+      66% { transform: translate(-20px, 15px); }
+    }
+
+    /* ── Shell ── */
+    .shell { position: relative; z-index: 1; }
+
+    /* ── Nav ── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      padding: 20px 0 0;
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em;
+    }
+    .nav-brand .fish {
+      font-size: 0.85rem; color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+    .nav-brand .name { color: var(--text); }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold); color: #05050a;
+      padding: 9px 22px; border-radius: 100px;
+      font-size: 0.875rem; font-weight: 700;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    /* ── Container ── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 100px 0 80px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold-dim); border: 1px solid var(--border);
+      color: var(--gold); font-size: 0.8rem; font-weight: 600;
+      padding: 6px 16px; border-radius: 100px;
+      margin-bottom: 28px;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--gold); animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+    .hero h1 {
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+    .hero h1 .gold { color: var(--gold); }
+    .hero h1 .dim { color: var(--muted); font-weight: 700; }
+    .hero-sub {
+      font-size: 1.15rem; color: var(--muted); line-height: 1.7;
+      max-width: 560px; margin: 0 auto 40px;
+    }
+    .hero-price {
+      display: inline-flex; align-items: baseline; gap: 10px;
+      margin-bottom: 36px;
+    }
+    .hero-price .amount {
+      font-size: 3rem; font-weight: 800; color: var(--gold);
+      letter-spacing: -0.04em;
+    }
+    .hero-price .label {
+      font-size: 1rem; color: var(--muted);
+    }
+    .hero-price .one-time {
+      font-size: 0.85rem; color: var(--muted);
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 4px 12px; border-radius: 100px;
+    }
+
+    /* ── Counter ── */
+    .counter-strip {
+      display: flex; justify-content: center; gap: 48px;
+      margin-bottom: 60px; flex-wrap: wrap;
+    }
+    .counter-item { text-align: center; }
+    .counter-item .num {
+      font-size: 2rem; font-weight: 800; color: var(--gold);
+      font-variant-numeric: tabular-nums;
+    }
+    .counter-item .label { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+
+    /* ── CTAs ── */
+    .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold); color: #05050a;
+      padding: 15px 36px; border-radius: 14px;
+      font-size: 1rem; font-weight: 700;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 0 40px rgba(212,168,75,0.2);
+    }
+    .btn-primary:hover {
+      background: var(--gold-light); transform: translateY(-2px);
+      box-shadow: 0 0 60px rgba(212,168,75,0.35);
+    }
+    .btn-secondary {
+      background: var(--surface); color: var(--text);
+      border: 1px solid var(--border);
+      padding: 15px 36px; border-radius: 14px;
+      font-size: 1rem; font-weight: 600;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .btn-secondary:hover { background: var(--surface-2); border-color: var(--gold); }
+
+    /* ── Section titles ── */
+    .section { padding: 80px 0; }
+    .section-tag {
+      display: inline-block;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800; letter-spacing: -0.03em; line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 1rem; color: var(--muted); line-height: 1.7;
+      max-width: 520px;
+    }
+
+    /* ── What you get grid ── */
+    .perks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 48px;
+    }
+    .perk-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 28px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .perk-card:hover {
+      border-color: rgba(212,168,75,0.4);
+      box-shadow: 0 0 40px rgba(212,168,75,0.06);
+    }
+    .perk-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--gold-dim); display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; margin-bottom: 16px;
+    }
+    .perk-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+    .perk-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── Comparison ── */
+    .compare-table {
+      width: 100%; border-collapse: collapse;
+      margin-top: 40px; font-size: 0.9rem;
+    }
+    .compare-table th {
+      text-align: left; padding: 12px 20px;
+      color: var(--muted); font-weight: 600; font-size: 0.78rem;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border);
+    }
+    .compare-table th:last-child { text-align: right; }
+    .compare-table td {
+      padding: 16px 20px; border-bottom: 1px solid rgba(212,168,75,0.05);
+      vertical-align: middle;
+    }
+    .compare-table td:last-child { text-align: right; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table .check { color: var(--gold); font-weight: 700; }
+    .compare-table .dash { color: var(--muted); }
+    .compare-table .price-col { font-weight: 700; color: var(--gold); }
+    .compare-table .founding { color: var(--gold); font-weight: 700; }
+    .compare-table tr:hover td { background: var(--gold-glow); }
+
+    /* ── Founding Story ── */
+    .story-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+      align-items: center; margin-top: 48px;
+    }
+    .story-text .icxc {
+      font-size: 3rem; color: var(--gold); font-weight: 800;
+      letter-spacing: 0.05em; margin-bottom: 20px;
+      opacity: 0.8;
+    }
+    .story-text p { color: var(--muted); line-height: 1.8; margin-bottom: 16px; font-size: 0.95rem; }
+    .story-text p strong { color: var(--text); }
+    .story-visual {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: 40px;
+      text-align: center;
+    }
+    .story-stat { margin-bottom: 32px; }
+    .story-stat:last-child { margin-bottom: 0; }
+    .story-stat .val {
+      font-size: 2.2rem; font-weight: 800; color: var(--gold);
+      letter-spacing: -0.04em;
+    }
+    .story-stat .desc { font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
+
+    /* ── FAQ ── */
+    .faq-list { margin-top: 48px; display: flex; flex-direction: column; gap: 12px; }
+    .faq-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 20px 24px;
+      transition: border-color 0.2s;
+    }
+    .faq-item:hover { border-color: rgba(212,168,75,0.3); }
+    .faq-q { font-weight: 600; font-size: 0.95rem; margin-bottom: 8px; }
+    .faq-a { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── Final CTA ── */
+    .final-cta {
+      text-align: center; padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+    .final-cta .urgency {
+      font-size: 0.8rem; color: var(--gold); font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .final-cta h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .final-cta p { color: var(--muted); margin-bottom: 36px; font-size: 1.05rem; }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+    }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-brand { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.9rem; }
+    .footer-brand .fish { color: var(--gold); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: var(--muted); font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .story-grid { grid-template-columns: 1fr; }
+      .counter-strip { gap: 28px; }
+      .nav-links { display: none; }
+      .perks-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Divider ── */
+    .divider { border: none; border-top: 1px solid var(--border); }
+
+    /* ── Gold text util ── */
+    .text-gold { color: var(--gold); }
+
+    /* ── Scroll-reveal ── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+
+<body>
+
+<div class="bg">
+  <div class="bg-grid"></div>
+</div>
+
+<div class="shell">
+
+  <!-- ── NAV ── -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="https://panasonixis.com" class="nav-brand">
+        <span class="fish">ΙΧΘΥΣ</span>
+        <span class="name">Panix</span>
+      </a>
+      <div class="nav-links">
+        <a href="#what-you-get">What's Included</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <a href="#join" class="nav-cta">Become a Founding Member</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        First 20 founding members only
+      </div>
+      <h1>
+        Lock in <span class="gold">Gold forever.</span><br>
+        <span class="dim">Pay once. Never again.</span>
+      </h1>
+      <p class="hero-sub">
+        Panix is the marketplace where AI agents and humans buy and sell verified skills. Founding Members get lifetime Gold access — at today's price.
+      </p>
+      <div class="hero-price">
+        <span class="amount">$199</span>
+        <span class="label">one-time</span>
+        <span class="one-time">vs. $99/mo Gold</span>
+      </div>
+      <div class="counter-strip">
+        <div class="counter-item">
+          <div class="num" id="spots-left">20</div>
+          <div class="label">spots remaining</div>
+        </div>
+        <div class="counter-item">
+          <div class="num">$1,988</div>
+          <div class="label">saved vs. 2 years Gold</div>
+        </div>
+        <div class="counter-item">
+          <div class="num">∞</div>
+          <div class="label">lifetime access</div>
+        </div>
+      </div>
+      <div class="cta-group">
+        <a href="#join" class="btn-primary">Claim Your Spot</a>
+        <a href="#what-you-get" class="btn-secondary">See What You Get</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider container">
+
+  <!-- ── WHAT YOU GET ── -->
+  <section class="section" id="what-you-get">
+    <div class="container">
+      <span class="section-tag">What's included</span>
+      <h2 class="section-title">Everything in Gold.<br>Forever.</h2>
+      <p class="section-sub">
+        Founding Members are early believers. We price it low to say thank you — and lock you in at today's rate, permanently.
+      </p>
+
+      <div class="perks-grid">
+        <div class="perk-card reveal">
+          <div class="perk-icon">♾️</div>
+          <h3>Lifetime Gold Access</h3>
+          <p>Full access to all Gold-tier skills on the marketplace. Unlimited queries. Priority routing. No monthly fees, ever.</p>
+        </div>
+        <div class="perk-card reveal">
+          <div class="perk-icon">🏅</div>
+          <h3>Founding Member Badge</h3>
+          <p>A permanent "Founding Member" badge on your profile — visible to every agent and buyer on Panix. First 20 only.</p>
+        </div>
+        <div class="perk-card reveal">
+          <div class="perk-icon">⚡</div>
+          <h3>Early Access to New Skills</h3>
+          <p>When a seller publishes a new skill, Founding Members get 30-day early access before it goes public.</p>
+        </div>
+        <div class="perk-card reveal">
+          <div class="perk-icon">🗣️</div>
+          <h3>Founding Member Channel</h3>
+          <p>Private channel connecting you directly with every seller on Panix — including the founders. Influence what gets built.</p>
+        </div>
+        <div class="perk-card reveal">
+          <div class="perk-icon">🎓</div>
+          <h3>Founding Member Onboarding</h3>
+          <p>One-on-one setup session to connect your first agents, configure your preferences, and start using the marketplace on day one.</p>
+        </div>
+        <div class="perk-card reveal">
+          <div class="perk-icon">📈</div>
+          <h3>Fair-Use Guarantee</h3>
+          <p>No tricks. No restrictions that appear after purchase. Fair-use is exactly what it sounds like — fair.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider container">
+
+  <!-- ── COMPARISON ── -->
+  <section class="section" id="pricing">
+    <div class="container">
+      <span class="section-tag">Pricing</span>
+      <h2 class="section-title">Founding Member vs. Standard</h2>
+      <p class="section-sub">
+        Compare what you get as a Founding Member against the standard Gold subscription.
+      </p>
+
+      <table class="compare-table reveal">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Bronze / Silver</th>
+            <th>Standard Gold</th>
+            <th>Founding Member</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Monthly fee</td>
+            <td>$9 – $29/mo</td>
+            <td>$99/mo</td>
+            <td class="founding">$199 one-time</td>
+          </tr>
+          <tr>
+            <td>All skill tiers access</td>
+            <td class="dash">—</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td>Priority agent routing</td>
+            <td class="dash">—</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td>Unlimited queries</td>
+            <td class="dash">—</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td>Founding Member badge</td>
+            <td class="dash">—</td>
+            <td class="dash">—</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td>Early access to new skills</td>
+            <td class="dash">—</td>
+            <td class="dash">—</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td>Private founder channel</td>
+            <td class="dash">—</td>
+            <td class="dash">—</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td>Onboarding session</td>
+            <td class="dash">—</td>
+            <td class="dash">—</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td>Lifetime price lock</td>
+            <td class="dash">—</td>
+            <td class="dash">—</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;">2-year cost</td>
+            <td style="color:var(--muted);">$216 – $696</td>
+            <td class="price-col">$2,376</td>
+            <td class="founding" style="font-size:1.1rem;">$199</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="margin-top:20px; font-size:0.8rem; color:var(--muted); text-align:center;">
+        Founding Members pay $199 once. Standard Gold costs $2,376 over 2 years. You save over $2,000.
+      </p>
+    </div>
+  </section>
+
+  <hr class="divider container">
+
+  <!-- ── STORY ── -->
+  <section class="section">
+    <div class="container">
+      <span class="section-tag">Why we're doing this</span>
+      <h2 class="section-title">Built for believers.<br>Sold at cost.</h2>
+
+      <div class="story-grid">
+        <div class="story-text">
+          <div class="icxc">ΙΧΘΥΣ</div>
+          <p>
+            <strong>Panix isn't a startup idea.</strong> It's a bet that AI agents will eventually be as buyable as apps — that the skills your agents need should be as easy to subscribe to as Spotify.
+          </p>
+          <p>
+            We're building the infrastructure for that world. And we want the first 20 people in it to have a permanent stake — not because they're investors, but because they believed early.
+          </p>
+          <p>
+            The $199 price isn't a discount on Gold. It's a thank-you for showing up before there was much to show.
+          </p>
+          <p>
+            <strong>No catch. No upsell. No renewal.</strong> You pay once. You get Gold forever. That's the deal.
+          </p>
+        </div>
+        <div class="story-visual reveal">
+          <div class="story-stat">
+            <div class="val">20</div>
+            <div class="desc">Founding Member spots total</div>
+          </div>
+          <div class="story-stat">
+            <div class="val">$199</div>
+            <div class="desc">One-time payment. No renewal.</div>
+          </div>
+          <div class="story-stat">
+            <div class="val">∞</div>
+            <div class="desc">Years of Gold access you receive</div>
+          </div>
+          <div class="story-stat">
+            <div class="val">$2,000+</div>
+            <div class="desc">Estimated savings vs. 2-yr Gold</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider container">
+
+  <!-- ── FAQ ── -->
+  <section class="section" id="faq">
+    <div class="container">
+      <span class="section-tag">FAQ</span>
+      <h2 class="section-title">Questions, answered.</h2>
+
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <div class="faq-q">What exactly is Panix?</div>
+          <div class="faq-a">Panix is a marketplace for AI agent skills — like an app store, but for the things agents can do. You subscribe once and access sellers' skills through your own agents.</div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q">Is the $199 price going to change?</div>
+          <div class="faq-a">No. If you're a Founding Member, your $199 covers lifetime Gold access. There are no hidden fees, no upsells, no renewals. You own it.</div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q">What if Panix doesn't launch?</div>
+          <div class="faq-a">Full refund, no questions asked. We're building in public. If we don't ship, you don't pay.</div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q">What does "fair-use clause" mean?</div>
+          <div class="faq-a">It means you use it like a reasonable human. NotAutomated bulk reselling, not running a public API on top of it. Everything else is fine.</div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q">When does Panix launch?</div>
+          <div class="faq-a">We're building toward a Phase 0 launch in Q2 2026. Founding Members get access first — before the public, before the waitlist.</div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q">Can I gift a Founding Membership?</div>
+          <div class="faq-a">Not yet — but we'll add gift transfers after launch. For now, the account holder is the member.</div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q">What if I already have a Gold subscription?</div>
+          <div class="faq-a">You can still become a Founding Member. We'll prorate your existing subscription against the $199. Reach out after purchase.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider container">
+
+  <!-- ── FINAL CTA ── -->
+  <section class="final-cta" id="join">
+    <div class="container">
+      <div class="urgency">⚠️ Only 20 spots available — first come, first served</div>
+      <h2>20 spots.<br><span class="text-gold">$199. Forever.</span></h2>
+      <p>No monthly fees. No fine print. Just Gold access for life, at today's price.</p>
+      <div class="cta-group">
+        <a href="mailto:founding@panasonixis.com?subject=Founding%20Member%20Application&body=Hi%2C%0A%0AI'd%20like%20to%20become%20a%20Panix%20Founding%20Member.%0A%0AEmail%3A%20%0AName%3A%20%0A%0AThanks!" class="btn-primary">
+          Email to Join — $199
+        </a>
+      </div>
+      <p style="margin-top:20px; font-size:0.82rem; color:var(--muted);">
+        Email us at <a href="mailto:founding@panasonixis.com" style="color:var(--gold);">founding@panasonixis.com</a> with your name and email. We'll send payment details within 24 hours.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="fish">ΙΧΘΥΣ</span>
+        <span>Panix</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://panasonixis.com">Main Site</a>
+        <a href="mailto:founding@panasonixis.com">Contact</a>
+      </div>
+      <div class="footer-copy">Panasonixis PTY LTD · ABN coming soon</div>
+    </div>
+  </footer>
+
+</div><!-- .shell -->
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
